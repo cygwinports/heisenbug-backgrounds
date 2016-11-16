@@ -1,0 +1,41 @@
+NAME="heisenbug-backgrounds"
+VERSION=20.0.0
+RELEASE=1
+CATEGORY="X11"
+SUMMARY="Fedora 20 desktop wallpaper"
+DESCRIPTION="Default wallpaper for the Fedora 20 release, along with a
+collection of selected wallpapers contributed by the Fedora community."
+HOMEPAGE="https://fedoraproject.org/wiki/Design"
+SRC_URI="https://fedorahosted.org/released/design-team/${NAME}-${VERSION}.tar.xz"
+
+ARCH=noarch
+
+PKG_NAMES="${NAME} ${NAME}-extras"
+heisenbug_backgrounds_DOCS="Attribution CC-BY-SA-3.0"
+heisenbug_backgrounds_CONTENTS="
+	usr/share/backgrounds/heisenbug/default/
+	usr/share/backgrounds/xfce/heisenbug.png
+	usr/share/gnome-background-properties/heisenbug.xml
+	usr/share/mate-background-properties/heisenbug.xml
+	usr/share/wallpapers/Heisenbug/
+"
+heisenbug_backgrounds_extras_SUMMARY="Fedora 20 extra wallpapers"
+heisenbug_backgrounds_extras_DOCS="Attribution-Extras CC-BY-SA-3.0"
+heisenbug_backgrounds_extras_CONTENTS="
+	usr/share/backgrounds/heisenbug/extras/
+	usr/share/backgrounds/xfce/heisenbug-*
+	usr/share/gnome-background-properties/heisenbug-extras.xml
+	usr/share/mate-background-properties/heisenbug-extras.xml
+	usr/share/wallpapers/Heisenbug_*/
+"
+
+src_compile() {
+	cd ${S}
+	cygmake
+}
+
+src_install() {
+	cd ${S}
+	cyginstall
+	mv ${D}/usr/share/{xfce4/backdrops,backgrounds/xfce}
+}
